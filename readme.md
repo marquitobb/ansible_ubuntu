@@ -10,6 +10,8 @@ This is a simple ansible playbook to install multiple applications on ubuntu.
 - docker-compose
 - conda
 - dbeaver
+- postman
+- mongodb compass
 
 ## run ansible playbook
 
@@ -29,4 +31,16 @@ sudo ansible-playbook -i hosts.ini install_conda.yml --connection=local --ask-be
 
 ```bash
 sudo ansible-playbook -i hosts.ini install_dbeaver.yml --connection=local --ask-become-pass
+```
+
+### install postman
+
+```bash
+sudo ansible-playbook -i hosts.ini install_postman.yml --connection=local --ask-become-pass
+```
+
+### install mongodb compass
+
+```bash
+sudo ansible-playbook -i hosts.ini install_mongodb_compass.yml --connection=local --ask-become-pass
 ```
