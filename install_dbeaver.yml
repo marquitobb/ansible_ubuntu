@@ -1,0 +1,39 @@
+---
+- name: Install DBeaver
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: install java jdk
+      apt:
+        name: openjdk-11-jdk
+        state: present
+
+    - name: Download DBeaver GPG key
+      command: curl -fsSL https://dbeaver.io/debs/dbeaver.gpg.key -o /tmp/dbeaver.gpg.key
+      become: yes
+
+    - name: Add DBeaver GPG key
+      command: sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/dbeaver.gpg /tmp/dbeaver.gpg.key
+      become: yes
+
+    - name: Add DBeaver repository
+      command: echo "deb https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
+      become: yes
+    
+    - name: Update apt cache
+      command: apt update
+      become: yes
+
+    - name: Install snapd
+      apt:
+        name: snapd
+        state: present
+
+    - name: Install DBeaver
+      snap:
+        name: dbeaver-ce
+        state: present
+
+    - name: Check DBeaver version
+      command: snap list dbeaver-ce
+      become: yes

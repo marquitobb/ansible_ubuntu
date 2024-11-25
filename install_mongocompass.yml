@@ -1,0 +1,19 @@
+---
+- name: Instalar MongoDB Compass en Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+    - name: Descargar MongoDB Compass
+      get_url:
+        url: "https://downloads.mongodb.com/compass/mongodb-compass_1.44.5_amd64.deb"
+        dest: "/tmp/mongodb-compass.deb"
+
+    - name: Instalar MongoDB Compass
+      apt:
+        deb: "/tmp/mongodb-compass.deb"
+        state: present
+
+    - name: Limpiar el archivo descargado
+      file:
+        path: "/tmp/mongodb-compass.deb"
+        state: absent
